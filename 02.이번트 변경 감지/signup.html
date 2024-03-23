@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <input type="text" id="email" oninput="checkValidation()" />
+    <input type="text" id="pw1" oninput="checkValidation()" />
+    <input type="text" id="pw2" oninput="checkValidation()" />
+    <button id="submit" disabled="true">회원가입</button>
+  </body>
+  <script>
+    const checkValidation = function () {
+      let email = document.getElementById('email').value;
+      let pw1 = document.getElementById('pw1').value;
+      let pw2 = document.getElementById('pw2').value;
+
+      if (email && pw1 && pw2) {
+        // 모든 input이 비어있지 않을때
+        document.getElementById('submit').disabled = false;
+      } else {
+        //  하나라도 비어있을때
+        document.getElementById('submit').disabled = true;
+      }
+    };
+  </script>
+</html>
