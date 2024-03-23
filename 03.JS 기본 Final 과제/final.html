@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./final.css" />
+    <script src="./final.js"></script>
+  </head>
+  <body>
+    <div class="form__wrapper">
+      <h1>코드캠프 회원가입</h1>
+      <ul>
+        <li class="input form__item">
+          <input type="email" id="email" placeholder="이메일을 입력해주세요" />
+          <p class="field__error" id="emailError">이메일이 올바르지 않습니다.</p>
+        </li>
+        <li class="input form__item">
+          <input type="text" id="name" placeholder="이름을 입력해주세요." />
+          <p class="field__error" id="nameError">이름이 올바르지 않습니다.</p>
+        </li>
+        <li class="input form__item">
+          <input type="password" id="pw1" placeholder="비밀번호를 입력해주세요" />
+          <p class="field__error" id="pw1Error">비밀번호를 입력해주세요.</p>
+        </li>
+        <li class="input form__item">
+          <input type="password" id="pw2" placeholder="비밀번호를 다시 입력해주세요" />
+          <p class="field__error" id="pw2Error">비밀번호를 입력해주세요.</p>
+        </li>
+        <li class="form__item phone">
+          <input type="number" oninput="phoneFocusChange1()" id="phone1" maxlength="3" />ㅡ
+          <input type="number" oninput="phoneFocusChange2()" id="phone2" maxlength="4" />ㅡ
+          <input type="number" oninput="phoneFocusChange3()" id="phone3" maxlength="4" />
+        </li>
+        <li class="auth form__item">
+          <dl>
+            <dt id="token">000000</dt>
+            <dd>
+              <button onclick="tokenPublish()" id="authButton1" disabled="true">
+                인증번호 전송
+              </button>
+            </dd>
+          </dl>
+        </li>
+        <li class="auth form__item">
+          <dl>
+            <dt id="timer">3 : 00</dt>
+            <dd>
+              <button onclick="tokenAuthCheck()" id="authButton2" disabled="true">인증확인</button>
+            </dd>
+          </dl>
+        </li>
+        <li class="select form__item">
+          <select name="area__select" id="area">
+            <option value="">지역을 선택하세요.</option>
+            <option value="서울">서울</option>
+            <option value="경기">경기</option>
+            <option value="인천">인천</option>
+          </select>
+          <p class="field__error" id="areaError">지역을 선택해주세요.</p>
+        </li>
+        <li class="form__item radio">
+          <dl>
+            <dt><label for="female">여성</label></dt>
+            <dd><input type="radio" name="sex" id="female" value="여성" /></dd>
+          </dl>
+          <dl>
+            <dt><label for="male">남성</label></dt>
+            <dd><input type="radio" name="sex" id="male" value="남성" /></dd>
+          </dl>
+          <p class="field__error" id="sexError">성별을 선택해주세요.</p>
+        </li>
+      </ul>
+      <button onclick="submit()" id="submit" class="submit">가입하기</button>
+    </div>
+  </body>
+</html>

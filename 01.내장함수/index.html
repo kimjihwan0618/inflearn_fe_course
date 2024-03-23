@@ -1,60 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>내장함수</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>내장함수</title>
+  <body>
+    <div>
+      <p id="token">000000</p>
+      <button onclick="auth()" id="authSendButton">인증번호 전송</button>
+    </div>
+    <p id="timer">3 : 00</p>
+    <button disabled="true" id="authCheckButton">인증완료</button>
+  </body>
+  <script>
+    // '인증번호 전송'을 누르면
+    // 0000에 인증번호가 표시되고
+    // 3분 타이머 시작
 
-</head>
+    // 3분 타이머는 0 미만으로 작아지지 않습니다.
 
-<body>
-  <div>
-    <p id="token">000000</p>
-    <button onclick="auth()" id="authSendButton">인증번호 전송</button>
-  </div>
-  <p id="timer">3 : 00</p>
-  <button disabled=true id="authCheckButton">인증완료</button>
-</body>
-<script>
-  // '인증번호 전송'을 누르면
-  // 0000에 인증번호가 표시되고
-  // 3분 타이머 시작
+    // 타이머가 0이 되었을때
+    // '인증완료' 버튼을 비활성화합니다
+    let intervalId;
+    let time = 180;
+    const text1 = document.querySelector('#token');
+    const text2 = document.querySelector('#timer');
+    const authSendButton = document.querySelector('#authSendButton');
+    const authCheckButton = document.querySelector('#authCheckButton');
+    const token = Math.floor(100000 + Math.random() * 900000);
+    const count = () => {
+      if (time >= 0) {
+        let min = Math.floor(time / 60);
+        let sec = String(time % 60).padStart(2, '0');
+        text2.textContent = `${min} : ${sec}`;
+        time -= 1;
+      } else {
+        authSendButton.disabled = false;
+        authCheckButton.disabled = true;
+        clearInterval(intervalId);
+      }
+    };
 
-  // 3분 타이머는 0 미만으로 작아지지 않습니다.
-
-  // 타이머가 0이 되었을때
-  // '인증완료' 버튼을 비활성화합니다
-  let intervalId;
-  let time = 5;
-  const text1 = document.querySelector("#token")
-  const text2 = document.querySelector("#timer")
-  const authSendButton = document.querySelector("#authSendButton")
-  const authCheckButton = document.querySelector("#authCheckButton")
-  const token = Math.floor(100000 + Math.random() * 900000);
-  const count = () => {
-    if (time >= 0) {
-      console.log("d?")
-      let min = Math.floor(time / 60)
-      let sec = String(time % 60).padStart(2, "0")
-      text2.textContent = `${min} : ${sec}`;
-      time -= 1;
-    } else {
-      console.log("d?")
-      authSendButton.disabled = false;
-      authCheckButton.disabled = true
+    const auth = () => {
       clearInterval(intervalId);
-    }
-  }
-
-  const auth = () => {
-    clearInterval(intervalId);
-    time = 5
-    authCheckButton.disabled = false
-    intervalId = setInterval(count, 1000)
-    text1.textContent = token;
-  }
-
-</script>
-
+      time = 180;
+      authCheckButton.disabled = false;
+      intervalId = setInterval(count, 1000);
+      text1.textContent = token;
+    };
+  </script>
 </html>
