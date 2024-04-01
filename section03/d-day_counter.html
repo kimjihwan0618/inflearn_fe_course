@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>D-Day</title>
+    <script>
+      const dateMaker = function () {
+        const inputYear = document.querySelector('#target-year-input').value;
+        const inputMonth = document.querySelector('#target-month-input').value;
+        const inputDate = document.querySelector('#target-date-input').value;
+        const dateFormat = `${inputYear}-${inputMonth}-${inputDate}`;
+        return dateFormat;
+      };
+
+      const counteMaker = function () {
+        const targetDateInput = dateMaker();
+        const nowDate = new Date();
+        const targetDate = new Date(targetDateInput).setHours(0, 0, 0, 0);
+        const remaining = (targetDate - nowDate) / 1000;
+        const remainingDate = Math.floor(remaining / 3600 / 24);
+        const remainingHours = Math.floor(remaining / 3600) % 24;
+        const remainingMin = Math.floor(remaining / 60) % 60;
+        const remainingSec = Math.floor(remaining) % 60;
+        console.log(`${remainingDate}일 ${remainingHours}시 ${remainingMin}분 ${remainingSec}초`);
+      };
+    </script>
+  </head>
+  <body>
+    <input id="target-year-input" /> - <input id="target-month-input" /> -
+    <input id="target-date-input" />
+    <button onclick="counteMaker()">버튼</button>
+  </body>
+</html>
