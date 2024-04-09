@@ -46,75 +46,6 @@
         margin-top: 12px;
       }
     </style>
-    <script>
-      let intervalId;
-
-      const dateMaker = function () {
-        const inputYear = document.querySelector('#target-year-input').value;
-        const inputMonth = document.querySelector('#target-month-input').value;
-        const inputDate = document.querySelector('#target-date-input').value;
-        const notice__text = document.querySelector('#notice__text-date-input');
-        const dateFormat = `${inputYear}-${inputMonth}-${inputDate}`;
-        return dateFormat;
-      };
-
-      const handleAttr = (buttonFlag, inputFlag) => {
-        document.querySelector('#countButton').disabled = !buttonFlag;
-        document.querySelector('#resetButton').disabled = buttonFlag;
-        document.querySelector('#target-year-input').readOnly = inputFlag;
-        document.querySelector('#target-month-input').readOnly = inputFlag;
-        document.querySelector('#target-date-input').readOnly = inputFlag;
-      };
-
-      const handleText = (year, month, minute, second) => {
-        document.querySelector('#target-year-text').textContent = year;
-        document.querySelector('#target-hour-text').textContent = month;
-        document.querySelector('#target-minute-text').textContent = minute;
-        document.querySelector('#target-second-text').textContent = second;
-      };
-
-      const resetTimer = function () {
-        notice__text.textContent = 'D-Day를 입력해 주세요.';
-        clearInterval(intervalId);
-        handleAttr(true, false);
-        handleText('0', '0', '0', '0');
-      };
-
-      const counteMaker = function () {
-        clearInterval(intervalId);
-        notice__text.textContent = 'D-Day 카운트 시작 !';
-
-        const targetDateInput = dateMaker();
-        targetDate = new Date(targetDateInput).setHours(0, 0, 0, 0);
-
-        if (
-          !/^\d{4}$/.test(targetDateInput.split('-')[0]) ||
-          !/^(0?[1-9]|1[0-2])$/.test(targetDateInput.split('-')[1]) ||
-          !/^(0?[1-9]|[1-2][0-9]|3[0-1])$/.test(targetDateInput.split('-')[2])
-        ) {
-          notice__text.textContent = '유효하지 않은 입력값이 있습니다.';
-          return;
-        } else if (targetDate < new Date()) {
-          notice__text.textContent = 'D-Day가 현재 시각보다 이전입니다.';
-          return;
-        } else {
-          handleAttr(false, true);
-        }
-
-        intervalId = setInterval(() => {
-          const remaining = (targetDate - new Date()) / 1000;
-          const remainingDate = String(Math.floor(remaining / 3600 / 24)).padStart(2, '0');
-          const remainingHours = String(Math.floor(remaining / 3600) % 24).padStart(2, '0');
-          const remainingMin = String(Math.floor(remaining / 60) % 60).padStart(2, '0');
-          const remainingSec = String(Math.floor(remaining) % 60).padStart(2, '0');
-          if (remaining <= 0) {
-            resetTimer();
-          } else {
-            handleText(remainingDate, remainingHours, remainingMin, remainingSec);
-          }
-        }, 1000);
-      };
-    </script>
   </head>
   <body>
     <h1>D-Day</h1>
@@ -147,4 +78,86 @@
     <button id="countButton" onclick="counteMaker()">카운트다운 시작</button>
     <button id="resetButton" disabled onclick="resetTimer()">카운트다운 리셋</button>
   </body>
+  <script>
+    let intervalId;
+    const local_storage_date = localStorage.getItem('time_date');
+
+    const dateMaker = function () {
+      const inputYear = document.querySelector('#target-year-input').value;
+      const inputMonth = document.querySelector('#target-month-input').value;
+      const inputDate = document.querySelector('#target-date-input').value;
+      const notice__text = document.querySelector('#notice__text-date-input');
+      const dateFormat = `${inputYear}-${inputMonth}-${inputDate}`;
+      return dateFormat;
+    };
+
+    const handleAttr = (buttonFlag, inputFlag) => {
+      document.querySelector('#countButton').disabled = !buttonFlag;
+      document.querySelector('#resetButton').disabled = buttonFlag;
+      document.querySelector('#target-year-input').readOnly = inputFlag;
+      document.querySelector('#target-month-input').readOnly = inputFlag;
+      document.querySelector('#target-date-input').readOnly = inputFlag;
+    };
+
+    const handleText = (year, month, minute, second) => {
+      document.querySelector('#target-year-text').textContent = year;
+      document.querySelector('#target-hour-text').textContent = month;
+      document.querySelector('#target-minute-text').textContent = minute;
+      document.querySelector('#target-second-text').textContent = second;
+    };
+
+    const resetTimer = function () {
+      notice__text.textContent = 'D-Day를 입력해 주세요.';
+      clearInterval(intervalId);
+      handleAttr(true, false);
+      handleText('0', '0', '0', '0');
+      localStorage.removeItem('time_date');
+    };
+
+    const counteMaker = function () {
+      clearInterval(intervalId);
+      notice__text.textContent = 'D-Day 카운트 시작 !';
+
+      const targetDateInput = dateMaker();
+      targetDate = new Date(targetDateInput).setHours(0, 0, 0, 0);
+
+      if (
+        !/^\d{4}$/.test(targetDateInput.split('-')[0]) ||
+        !/^(0?[1-9]|1[0-2])$/.test(targetDateInput.split('-')[1]) ||
+        !/^(0?[1-9]|[1-2][0-9]|3[0-1])$/.test(targetDateInput.split('-')[2])
+      ) {
+        notice__text.textContent = '유효하지 않은 입력값이 있습니다.';
+        return;
+      } else if (targetDate < new Date()) {
+        notice__text.textContent = 'D-Day가 현재 시각보다 이전입니다.';
+        return;
+      } else {
+        handleAttr(false, true);
+        localStorage.setItem('time_date', targetDateInput);
+      }
+
+      intervalId = setInterval(() => {
+        const remaining = (targetDate - new Date()) / 1000;
+        const remainingDate = String(Math.floor(remaining / 3600 / 24)).padStart(2, '0');
+        const remainingHours = String(Math.floor(remaining / 3600) % 24).padStart(2, '0');
+        const remainingMin = String(Math.floor(remaining / 60) % 60).padStart(2, '0');
+        const remainingSec = String(Math.floor(remaining) % 60).padStart(2, '0');
+        if (remaining <= 0) {
+          resetTimer();
+        } else {
+          handleText(remainingDate, remainingHours, remainingMin, remainingSec);
+        }
+      }, 1000);
+    };
+
+    if (local_storage_date) {
+      const date_parse = local_storage_date.split('-');
+      document.querySelector('#target-year-input').value = date_parse[0];
+      document.querySelector('#target-month-input').value = date_parse[1];
+      document.querySelector('#target-date-input').value = date_parse[2];
+      dateMaker();
+      handleAttr(true, true);
+      counteMaker();
+    }
+  </script>
 </html>
