@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ToDo</title>
+  </head>
+  <body>
+    <div class="todo__wrapper">
+      <h1 class="todo__title">ToDo</h1>
+      <input
+        onkeydown="handleTodoInput(event)"
+        placeholder="할일을 입력해주세요."
+        class="todo__add__input"
+        type="text"
+      />
+      <div class="inner">
+        <ul class="todo__list"></ul>
+      </div>
+      <button onclick="handleAllRemoveClick()" class="todo__remove__btn">전체삭제</button>
+    </div>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./script.js"></script>
+  </body>
+</html>
