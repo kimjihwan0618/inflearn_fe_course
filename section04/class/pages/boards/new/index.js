@@ -13,28 +13,97 @@ import {
   ImageUploadButton,
   UploadButtonWrapper,
   RadioItem,
-} from '../../../styles/newBoard';
+  FormItemError,
+} from '../../../styles/boardsNew';
+import { useState } from 'react';
 
 export default function NewBoard() {
+  const [writer, setWriter] = useState('');
+  const [password, setPassword] = useState('');
+  const [title, setTitle] = useState('');
+  const [contents, setContents] = useState('');
+
+  const [writerError, setWriterError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [titleError, setTitleError] = useState('');
+  const [contentsError, setContentsError] = useState('');
+
+  const handleInputChange = (e, setInput, setError) => {
+    setInput(e.target.value);
+    if (e.target.value !== '') {
+      setError('');
+    }
+  };
+
+  const handleSumbit = () => {
+    if (!writer) {
+      setWriterError('작성자를 입력해주세요');
+    }
+    if (!password) {
+      setPasswordError('비밀번호를 입력해주세요');
+    }
+    if (!title) {
+      setTitleError('제목을 입력해주세요');
+    }
+    if (!contents) {
+      setContentsError('내용을 입력해주세요');
+    }
+    if (writer && password && title && contents) {
+      alert('게시글이 등록되었습니다.');
+    }
+  };
+
   return (
     <ContentWrapper>
       <ContentTitle>게시물 등록</ContentTitle>
       <FormWrapper>
         <FormItem style={{ width: '48.78%' }}>
           <ItemTitle>작성자</ItemTitle>
-          <ItemInput type="text" placeholder="이름을 적어주세요." />
+          <ItemInput
+            value={writer}
+            onChange={(e) => {
+              handleInputChange(e, setWriter, setWriterError);
+            }}
+            type="text"
+            placeholder="이름을 적어주세요."
+          />
+          <FormItemError>{writerError}</FormItemError>
         </FormItem>
         <FormItem style={{ width: '48.78%' }}>
           <ItemTitle>비밀번호</ItemTitle>
-          <ItemInput type="password" placeholder="비밀번호를 입력해주세요." />
+          <ItemInput
+            value={password}
+            onChange={(e) => {
+              handleInputChange(e, setPassword, setPasswordError);
+            }}
+            type="password"
+            placeholder="비밀번호를 입력해주세요."
+          />
+          <FormItemError>{passwordError}</FormItemError>
         </FormItem>
         <FormItem style={{ width: '100%' }}>
           <ItemTitle>제목</ItemTitle>
-          <ItemInput type="text" placeholder="제목을 작성해주세요." />
+          <ItemInput
+            value={title}
+            onChange={(e) => {
+              handleInputChange(e, setTitle, setTitleError);
+            }}
+            type="text"
+            placeholder="제목을 작성해주세요."
+          />
+          <FormItemError>{titleError}</FormItemError>
         </FormItem>
         <FormItem style={{ width: '100%' }}>
           <ItemTitle>내용</ItemTitle>
-          <ItemTextArea type="text" placeholder="내용을 작성해주세요." />
+          <ItemTextArea
+            value={contents}
+            onChange={(e) => {
+              handleInputChange(e, setContents, setContentsError);
+            }}
+            type="text"
+            placeholder="내용을 작성해주세요."
+          />
+          <FormItemError>{contentsError}</FormItemError>
         </FormItem>
         <PostSearchItem>
           <FormItem style={{ width: '78px' }}>
@@ -81,7 +150,7 @@ export default function NewBoard() {
         </FormItem>
       </FormWrapper>
       <FormItem style={{ width: '100%' }}>
-        <RegisterButton>등록하기</RegisterButton>
+        <RegisterButton onClick={handleSumbit}>등록하기</RegisterButton>
       </FormItem>
     </ContentWrapper>
   );

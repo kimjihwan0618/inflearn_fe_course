@@ -3,9 +3,8 @@ import styled from '@emotion/styled';
 export const ContentWrapper = styled.div`
   padding: 60px 101px 100px;
   width: 62.5%;
-  margin: 101px auto 0;
+  margin: 101px auto;
   min-width: 920px;
-  font-family: 'Noto Sans CJK KR';
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 `;
 
@@ -20,6 +19,7 @@ export const FormWrapper = styled.div`
   margin-bottom: 40px;
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
   flex-wrap: wrap;
 `;
 
@@ -44,7 +44,6 @@ export const ItemInput = styled.input`
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;
-    margin: 0;
   }
 `;
 
@@ -69,7 +68,6 @@ export const ImageUploadButton = styled.button`
     font-size: 12px;
     font-weight: 500;
     color: #4f4f4f;
-    margin: 0px;
     padding: 0px;
   }
 `;
@@ -145,4 +143,10 @@ export const RegisterButton = styled.button`
   font-weight: 500;
   outline: none;
   border: none;
+`;
+
+export const FormItemError = styled.p`
+  color: red;
+  font-size: 16px;
+  margin-top: 4px;
 `;
