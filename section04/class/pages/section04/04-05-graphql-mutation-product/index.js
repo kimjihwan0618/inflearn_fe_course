@@ -1,0 +1,34 @@
+import { useMutation, gql } from '@apollo/client';
+
+const CREATE_PRODUCT = gql`
+  mutation createProduct($seller: String, $createProductInput: CreateProductInput!) {
+    # 변수의 타입 적는 곳
+    createProduct(seller: $seller, createProductInput: $createProductInput) {
+      # 실제 우리가 전달할 변수 적는 곳
+      _id
+      number
+      message
+    }
+  }
+`;
+
+export default function GraphqlMutationPage() {
+  const [createProduct] = useMutation(CREATE_PRODUCT);
+
+  const onClickSubmit = async () => {
+    const result = await createProduct({
+      variables: {
+        seller: '지환',
+        createProductInput: {
+          name: '키보드',
+          detail: '한무무 키보드 무접점',
+          price: 198000,
+        },
+      },
+    });
+    console.log(result);
+  };
+
+  // 한줄일때는 괄호 필요 없음
+  return <button onClick={onClickSubmit}>GRAPHQL-API 요청하기</button>;
+}
