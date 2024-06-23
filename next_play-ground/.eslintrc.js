@@ -1,21 +1,15 @@
 module.exports = {
   env: {
-    broswer: true,
+    browser: true,
     es2021: true,
   },
-  extends: [
-    'plugin:@typescript-eslint/recommended', 
-    'standard-with-typescript',
-    "prettier"
-  ],
+  extends: ['plugin:react/recommended', 'standard-with-typescript'],
   overrides: [],
   parserOptions: {
     project: '**/tsconfig.json',
-    ecamVersion: 'latest',
+    ecmaVersion: 'latest',
     sourceType: 'module',
   },
   plugins: ['react'],
-  rules: {
-    'react/react-in-jsx-scope': 'off',
-  },
+  rules: {},
 };
