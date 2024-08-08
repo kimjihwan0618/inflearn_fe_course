@@ -31,8 +31,6 @@ export default function StaticRoutingMovedPage(): JSX.Element {
     IQueryFetchBoardsArgs
   >(FETCH_BOARDS);
 
-  const [deleteBoard] = useMutation(DELETE_BOARD);
-
   console.log(data?.fetchBoards);
 
   const onClickPage = (page: number): void => {
