@@ -1,5 +1,5 @@
 import { gql, useMutation } from '@apollo/client';
-import type { ChangeEvent } from 'react';
+import { useState, type ChangeEvent } from 'react';
 import type {
   IMutation,
   IMutationUploadFileArgs,
@@ -17,6 +17,7 @@ export default function ImageUploadPage(): JSX.Element {
   const [uploadFile] = useMutation<Pick<IMutation, 'uploadFile'>, IMutationUploadFileArgs>(
     UPLOAD_FILE
   );
+  const [imageUrl, setImageUrl] = useState('');
 
   const onChangeFile = async (event: ChangeEvent<HTMLInputElement>): Promise<void> => {
     const file = event.target.files?.[0]; // 배열로 들어오는 이유 : <input type="file" multiple /> 일떄 여러개 드래그 가능
@@ -27,7 +28,13 @@ export default function ImageUploadPage(): JSX.Element {
       },
     });
     console.log(result.data?.uploadFile.url);
+    setImageUrl(result.data?.uploadFile.url ?? '');
   };
 
-  return <input type="file" onChange={onChangeFile} />;
+  return (
+    <>
+      <input type="file" onChange={onChangeFile} accept="image/jpeg,image/png" />
+      <img src={`https://storage.googleapis.com/${imageUrl}`} />
+    </>
+  );
 }
