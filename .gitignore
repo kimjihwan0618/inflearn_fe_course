@@ -1,0 +1,5 @@
+class_backend/node_modules
+class_backend/yarn.lock
+
+# config
+class_backend/config/db.config.ts
