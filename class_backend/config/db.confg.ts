@@ -1,13 +1,13 @@
-import { Board } from '../Board.mariadb';
-import { DataSourceOptions } from 'typeorm';
+import { Board } from "../Board.mariadb";
+import { DataSourceOptions } from "typeorm";
 
 export const dbConfig: DataSourceOptions = {
-  type: 'mariadb',
-  host: 'kimjihodo.synology.me',
-  port: 3306,
-  username: 'nasmypopol',
-  password: 'RlawlGheh0121!',
-  database: 'markets',
+  type: "",
+  host: "",
+  port: 3333,
+  username: "",
+  password: "",
+  database: "",
   entities: [Board],
   synchronize: true,
   logging: true,
