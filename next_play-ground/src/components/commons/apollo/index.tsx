@@ -7,8 +7,8 @@ import {
 } from '@apollo/client';
 import createUploadLink from 'apollo-upload-client/createUploadLink.mjs';
 import { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
-import { accessTokenState } from 'src/commons/stores';
+import { useRecoilState, useRecoilValueLoadable } from 'recoil';
+import { accessTokenState, restoreAccessTokenLoadable } from 'src/commons/stores';
 import { onError } from '@apollo/client/link/error';
 import { getAccessToken } from 'src/commons/lib/getAccessToken';
 
@@ -20,6 +20,7 @@ interface IApolloSettingProps {
 
 export default function ApolloSetting(props: IApolloSettingProps): JSX.Element {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
+  const aaa = useRecoilValueLoadable(restoreAccessTokenLoadable);
 
   // 프리렌더링 예제 1
   // if (process.browser) {
@@ -32,8 +33,13 @@ export default function ApolloSetting(props: IApolloSettingProps): JSX.Element {
 
   // 프리렌더링 예제 3
   useEffect(() => {
-    const result = localStorage.getItem('accessToken');
-    setAccessToken(result ?? '');
+    // 1. 기존방식 (refreshToken 이전)
+    // const result = localStorage.getItem('accessToken');
+
+    // 2. 새로운 방식(refreshToken 이후)
+    void aaa.toPromise().then((newAccessToken) => {
+      setAccessToken(newAccessToken ?? '');
+    });
   }, []);
 
   const errorLink = onError(({ graphQLErrors, operation, forward }) => {
