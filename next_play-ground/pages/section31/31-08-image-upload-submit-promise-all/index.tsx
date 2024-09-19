@@ -90,7 +90,9 @@ export default function ImageUploadPage(): JSX.Element {
     // const files = []
     // files.map((el) => uploadFile({ variables: { file: el } }));
 
-    Promise.all(files.map((el) => uploadFile({ variables: { file: el } })));
+    const results = await Promise.all(files.map((el) => uploadFile({ variables: { file: el } })));
+    console.log(results); // [resultsFile0, resultFile1, resultFile2]
+    const resultUrls = results.map((el) => el.data?.uploadFile.url);
 
     // 2. createBoard
     const result = await 나의함수();
