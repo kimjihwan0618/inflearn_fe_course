@@ -6,7 +6,7 @@ import { Global } from '@emotion/react';
 import { globalStyles } from '../src/commons/styles/globalStyles';
 import { RecoilRoot } from 'recoil';
 
-function MyApp({ Component }: AppProps): JSX.Element {
+function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <>
       <div>
@@ -18,7 +18,7 @@ function MyApp({ Component }: AppProps): JSX.Element {
           <>
             <Global styles={globalStyles} />
             <Layout>
-              <Component />
+              <Component {...pageProps} />
             </Layout>
           </>
         </ApolloSetting>
