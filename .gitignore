@@ -1,5 +1,8 @@
 class_backend/node_modules
 class_backend/yarn.lock
 
+class_build/node_modules
+class_build/package-lock.json
+
 # config
 class_backend/config/db.config.ts
