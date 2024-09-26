@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 
-export default function BoardsPage(): JSX.Element {
+export default function BoardsPage() {
   const router = useRouter();
 
   return (
