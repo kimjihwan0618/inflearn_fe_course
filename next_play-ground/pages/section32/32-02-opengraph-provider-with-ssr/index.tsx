@@ -33,6 +33,8 @@ export default function OpengraphProviderPage(props: any) {
 
 // 1. getServerSideProps는 존재하는 단어이므로 변경 불가능
 // 2. 여기는 서버에서만 실행됨(프론트엔드 서버 프로그램 => webpack 서버프로그램)
+// * 서버사이드 렌더링 페이지는 out 폴더로 생성 불가
+//                                                 =>  이런 경우, next.config.js에서 exportPathMap으로 현재 페이지 제외시키기
 const getServerSideProps = async (): Promise<any> => {
   console.log('여기는 서버입니다.');
 
